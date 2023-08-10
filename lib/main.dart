@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skin_app/skinpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,12 +38,36 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ),
     // Content for Feed tab
-    Container(
+    Container(      
       color: Colors.purple.shade100,
-      alignment: Alignment.center,
-      child: const Text(
-        'Feed',
-        style: TextStyle(fontSize: 40),
+      child: Row (
+        children: [
+          // Add a search icon or button outside the border of the search bar
+        
+          Expanded(
+            // Use a Material design search bar
+            child: TextField(
+              //controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                // Add a clear button to the search bar
+                // suffixIcon: IconButton(
+                //   icon: Icon(Icons.clear),
+                //   onPressed: () => _searchController.clear(),
+                // ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Perform the search here
+            },
+          ),
+        ],
       ),
     ),
     // Content for Favorites tab
@@ -72,13 +95,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Skin Visionary"),
+        title: const Text("Responsive site"),
       ),
       bottomNavigationBar:  MediaQuery.of(context).size.width < 640?
       BottomNavigationBar(
           currentIndex: _selectedIndex,
           unselectedItemColor: Colors.grey,
-          selectedItemColor: const Color.fromARGB(255, 83, 254, 206),
+          selectedItemColor: Colors.indigoAccent,
           // called when one tab is selected
           onTap: (int index) {
             setState(() {
@@ -88,11 +111,11 @@ class _HomeScreenState extends State<HomeScreen> {
           // bottom tab items
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.feed), label: 'Skin Disease'),
+                icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.medical_services), label: 'Medicine'),
+                icon: Icon(Icons.feed), label: 'Feed'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.image), label: 'Images'),
+                icon: Icon(Icons.favorite), label: 'Favorites'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: 'Settings')
           ]):null,
@@ -101,25 +124,18 @@ class _HomeScreenState extends State<HomeScreen> {
           if (MediaQuery.of(context).size.width >= 640)
           NavigationRail(
             onDestinationSelected: (int index) {
-            setState(() {
-              _selectedIndex = index;
-              switch (index) {
-                case 0:
-                  _navigateToPage(Skinpage());
-                  break;
-                default:
-                  break;
-              }
-            });
-          },
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
             selectedIndex: _selectedIndex,
             destinations: const [
               NavigationRailDestination(
-                  icon: Icon(Icons.feed), label: Text('Skin Disease')),
+                  icon: Icon(Icons.home), label: Text('Home')),
               NavigationRailDestination(
-                  icon: Icon(Icons.medical_services), label: Text('Medicine')),
+                  icon: Icon(Icons.feed), label: Text('Feed')),
               NavigationRailDestination(
-                  icon: Icon(Icons.image), label: Text('Images')),
+                  icon: Icon(Icons.favorite), label: Text('Favorites')),
               NavigationRailDestination(
                   icon: Icon(Icons.settings), label: Text('Settings')),
             ],
@@ -136,7 +152,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 8,
                 ),
-                
+                CircleAvatar(
+                  radius: 20,
+                  child: Icon(Icons.person),
+                ),
               ],
             ),
 
@@ -144,13 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(child: _screens[_selectedIndex])
         ],
       ),
-
-    );
-  }
-void _navigateToPage(Widget page) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => page),
+  
     );
   }
 }
