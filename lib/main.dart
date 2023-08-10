@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       color: Colors.red.shade100,
       alignment: Alignment.center,
       child: const Text(
-        'Favorites',
+        'Favorites1',
         style: TextStyle(fontSize: 40),
       ),
     ),
