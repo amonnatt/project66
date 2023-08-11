@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // Remove the debug banner
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.indigo),
+        theme: ThemeData(primarySwatch: Colors.teal),
         home: const HomeScreen()
         );
         
@@ -36,22 +36,30 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
  
   final List<Widget> _screens = [
+    
     // Content for Home tab
     Container(
-     
+     color: Colors.amber.shade50,
+      alignment: Alignment.topCenter,
+      child: const Text(
+        'skin',
+        style: TextStyle(fontSize: 40),
+      ),
     ),
     // Content for Feed tab
-    Container(      
-      color: Colors.purple.shade100,
+    Container(     
+      alignment: Alignment.topCenter,
+      color: Colors.amber.shade50,
       child: Row (
-        children: [
+        children: [        
           // Add a search icon or button outside the border of the search bar
-        
           Expanded(
+            
             // Use a Material design search bar
             child: TextField(
               //controller: _searchController,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(20.0),
                 hintText: 'Search...',
                 // Add a clear button to the search bar
                 // suffixIcon: IconButton(
@@ -59,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   onPressed: () => _searchController.clear(),
                 // ),
                 border: OutlineInputBorder(
+                  
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
@@ -70,13 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
               // Perform the search here
             },
           ),
-        ],
+        ],         
       ),
     ),
     // Content for Favorites tab
     Container(
-      color: Colors.red.shade100,
-      alignment: Alignment.center,
+      color: Colors.amber.shade50,
+      alignment: Alignment.topCenter,
       child: const Text(
         'Favorites1',
         style: TextStyle(fontSize: 40),
@@ -84,8 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     // Content for Settings tab
     Container(
-      color: Colors.pink.shade300,
-      alignment: Alignment.center,
+      color: Colors.amber.shade50,
+      alignment: Alignment.topCenter,
       child: const Text(
         'Settings',
         style: TextStyle(fontSize: 40),
