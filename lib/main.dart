@@ -1,5 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+//import 'package:skin_app/SkinDisease.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,16 +34,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+ 
   final List<Widget> _screens = [
     // Content for Home tab
     Container(
-      color: Colors.yellow.shade100,
-      alignment: Alignment.center,
-      child: const Text(
-        '_navigateToPage(Skinpage());',
-        style: TextStyle(fontSize: 40),
-      ),
+     
     ),
     // Content for Feed tab
     Container(      
@@ -99,10 +95,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int _selectedIndex = 0;
   @override
+  void initState() {
+    super.initState();
+    //retrieieveSkinDiseaseData();
+  }
+  
+  static get skinlist => null;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Responsive site"),
+        title: const Text("Data"),
       ),
       bottomNavigationBar:  MediaQuery.of(context).size.width < 640?
       BottomNavigationBar(
@@ -118,11 +121,11 @@ class _HomeScreenState extends State<HomeScreen> {
           // bottom tab items
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home), label: 'Home'),
+                icon: Icon(Icons.feed), label: 'Skin Disease'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.feed), label: 'Feed'),
+                icon: Icon(Icons.medical_services), label: 'Medicind'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite), label: 'Favorites'),
+                icon: Icon(Icons.image), label: 'image'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: 'Settings')
           ]):null,
@@ -138,11 +141,11 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedIndex: _selectedIndex,
             destinations: const [
               NavigationRailDestination(
-                  icon: Icon(Icons.home), label: Text('Home')),
+                  icon: Icon(Icons.feed), label: Text('Skin Disease')),
               NavigationRailDestination(
-                  icon: Icon(Icons.feed), label: Text('Feed')),
+                  icon: Icon(Icons.medical_services), label: Text('Medicind')),
               NavigationRailDestination(
-                  icon: Icon(Icons.favorite), label: Text('Favorites')),
+                  icon: Icon(Icons.image), label: Text('image')),
               NavigationRailDestination(
                   icon: Icon(Icons.settings), label: Text('Settings')),
             ],
@@ -173,4 +176,17 @@ class _HomeScreenState extends State<HomeScreen> {
   
     );
   }
+  
+  // void retrieieveSkinDiseaseData() async{
+  //   skinlist.clear();
+  //    var dbRef;
+  //    await dbRef.child('SkinDisease').once().then((snapshot) {
+  //     print('Data : ${snapshot.value}');
+  //     Map<dynamic, dynamic> values = snapshot.value;
+  //     values.forEach((k, v) {
+  //       print('ชื่อโรค');
+  //     });
+  //   });
+
+  // }
 }
