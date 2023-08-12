@@ -35,167 +35,60 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
  
-  final List<Widget> _screens = [
-    
-    // Content for Home tab
-    Container(
-     color: Colors.amber.shade50,
-      alignment: Alignment.topCenter,
-      child: const Text(
-        'skin',
-        style: TextStyle(fontSize: 40),
-      ),
-    ),
-    // Content for Feed tab
-    Container(     
-      alignment: Alignment.topCenter,
-      color: Colors.amber.shade50,
-      child: Row (
-        children: [        
-          // Add a search icon or button outside the border of the search bar
-          Expanded(
-            
-            // Use a Material design search bar
-            child: TextField(
-              //controller: _searchController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20.0),
-                hintText: 'Search...',
-                // Add a clear button to the search bar
-                // suffixIcon: IconButton(
-                //   icon: Icon(Icons.clear),
-                //   onPressed: () => _searchController.clear(),
-                // ),
-                border: OutlineInputBorder(
-                  
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Perform the search here
-            },
-          ),
-        ],         
-      ),
-    ),
-    // Content for Favorites tab
-    Container(
-      color: Colors.amber.shade50,
-      alignment: Alignment.topCenter,
-      child: const Text(
-        'Favorites1',
-        style: TextStyle(fontSize: 40),
-      ),
-    ),
-    // Content for Settings tab
-    Container(
-      color: Colors.amber.shade50,
-      alignment: Alignment.topCenter,
-      child: const Text(
-        'Settings',
-        style: TextStyle(fontSize: 40),
-      ),
-    )
-  ];
-
-  int _selectedIndex = 0;
-  @override
-  void initState() {
-    super.initState();
-    //retrieieveSkinDiseaseData();
-  }
-  
-  static get skinlist => null;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Data"),
-      ),
-      bottomNavigationBar:  MediaQuery.of(context).size.width < 640?
-      BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.indigoAccent,
-          // called when one tab is selected
-          onTap: (int index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          // bottom tab items
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.feed), label: 'Skin Disease'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.medical_services), label: 'Medicind'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.image), label: 'image'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: 'Settings')
-          ]):null,
-      body: Row(
-        children: [
-          if (MediaQuery.of(context).size.width >= 640)
-          NavigationRail(
-            onDestinationSelected: (int index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            selectedIndex: _selectedIndex,
-            destinations: const [
-              NavigationRailDestination(
-                  icon: Icon(Icons.feed), label: Text('Skin Disease')),
-              NavigationRailDestination(
-                  icon: Icon(Icons.medical_services), label: Text('Medicind')),
-              NavigationRailDestination(
-                  icon: Icon(Icons.image), label: Text('image')),
-              NavigationRailDestination(
-                  icon: Icon(Icons.settings), label: Text('Settings')),
-            ],
-
-            labelType: NavigationRailLabelType.all,
-            selectedLabelTextStyle: const TextStyle(
-              color: Colors.teal,
-            ),
-
-            unselectedLabelTextStyle: const TextStyle(),
-            // Called when one tab is selected
-            leading: Column(
-              children: const [
-                SizedBox(
-                  height: 8,
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(
+              tabs: [
+                Tab(
+                  text: 'Skin Disease',
+                  icon: Icon(Icons.feed),
                 ),
-                CircleAvatar(
-                  radius: 20,
-                  child: Icon(Icons.person),
+                Tab(
+                  text: 'Medicine',
+                  icon: Icon(Icons.directions_car),
+                ),
+                Tab(
+                  text: 'Image',
+                  icon: Icon(Icons.image),
                 ),
               ],
             ),
-
+            title: const Text('Tabs Demo'),
           ),
-          Expanded(child: _screens[_selectedIndex])
+          body: TabBarView(
+            children: [
+              SkinDataPage(),
+              Icon(Icons.directions_transit),
+              Icon(Icons.directions_bike),
+            ],
+          ),
+        ),
+      ),
+    );
+  } 
+}
+class SkinDataPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: DataTable(
+        //Color:(Colors.teal),
+        columns: const [
+          
+          DataColumn(label: Text('ชื่อโรค')),
+          DataColumn(label: Text('Name')),
+        ],
+        rows: const [
+          DataRow(cells: [DataCell(Text('1')), DataCell(Text('John'))]),
+          DataRow(cells: [DataCell(Text('2')), DataCell(Text('Jane'))]),
+          DataRow(cells: [DataCell(Text('3')), DataCell(Text('Doe'))]),
         ],
       ),
-  
     );
   }
-  
-  // void retrieieveSkinDiseaseData() async{
-  //   skinlist.clear();
-  //    var dbRef;
-  //    await dbRef.child('SkinDisease').once().then((snapshot) {
-  //     print('Data : ${snapshot.value}');
-  //     Map<dynamic, dynamic> values = snapshot.value;
-  //     values.forEach((k, v) {
-  //       print('ชื่อโรค');
-  //     });
-  //   });
-
-  // }
 }
